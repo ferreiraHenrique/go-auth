@@ -7,20 +7,16 @@ import (
 )
 
 type User struct {
-	ID       int32
+	ID       uint
 	Username string
 	Password *Password
 }
 
-func NewUser(id int32, username, password string) *User {
+func NewUser(id uint, username, password string) *User {
 	user := &User{
 		ID:       id,
 		Username: username,
 		Password: NewPassword(password),
-	}
-
-	if user.Password == nil {
-		return nil
 	}
 
 	return user
