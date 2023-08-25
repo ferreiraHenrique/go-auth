@@ -22,5 +22,9 @@ func (service service) Create(response http.ResponseWriter, request *http.Reques
 		return
 	}
 
-	json.NewEncoder(response).Encode(manager)
+	jsonResponse, _ := json.Marshal(map[string]interface{}{
+		"username": manager.User.Username,
+	})
+	response.Header().Set("Content-Type", "application/json")
+	response.Write(jsonResponse)
 }

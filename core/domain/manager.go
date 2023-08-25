@@ -7,8 +7,19 @@ import (
 )
 
 type Manager struct {
-	ID   int32  `json:"id"`
-	Name string `json:"name"`
+	ID   uint
+	Name string
+	User *User
+}
+
+func NewManager(id uint, name string, user *User) *Manager {
+	manager := &Manager{
+		ID:   id,
+		Name: name,
+		User: user,
+	}
+
+	return manager
 }
 
 type ManagerService interface {

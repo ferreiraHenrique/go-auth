@@ -1,7 +1,9 @@
 package sqlite
 
+import "gorm.io/gorm"
+
 type User struct {
-	ID       int32
-	Username string
+	gorm.Model
+	Username string `gorm:"uniqueIndex"`
 	Password string
 }
