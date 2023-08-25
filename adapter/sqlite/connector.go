@@ -1,6 +1,7 @@
 package sqlite
 
 import (
+	"database/sql"
 	"fmt"
 	"os"
 
@@ -13,6 +14,7 @@ type PoolInterface interface {
 	Create(value interface{}) (tx *gorm.DB)
 	Find(dest interface{}, conds ...interface{}) (tx *gorm.DB)
 	First(dest interface{}, conds ...interface{}) (tx *gorm.DB)
+	Transaction(fc func(tx *gorm.DB) error, opts ...*sql.TxOptions) (err error)
 }
 
 func GetConnection() *gorm.DB {
