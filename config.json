@@ -1,0 +1,8 @@
+{
+    "database": {
+        "url": "gorm.db"
+    },
+    "server": {
+        "port": "3000"
+    }
+}
