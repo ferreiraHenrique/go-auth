@@ -11,6 +11,8 @@ import (
 
 type PoolInterface interface {
 	Create(value interface{}) (tx *gorm.DB)
+	Find(dest interface{}, conds ...interface{}) (tx *gorm.DB)
+	First(dest interface{}, conds ...interface{}) (tx *gorm.DB)
 }
 
 func GetConnection() *gorm.DB {
