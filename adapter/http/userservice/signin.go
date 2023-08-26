@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/ferreiraHenrique/go-auth/core/domain"
 	"github.com/ferreiraHenrique/go-auth/core/dto"
 )
 
@@ -22,8 +23,13 @@ func (service service) Signin(response http.ResponseWriter, request *http.Reques
 		return
 	}
 
+	token := domain.NewToken()
+	token.SetClaim("username", user.Username)
+	tokenSigned, _ := token.SignString()
+
 	jsonResponse, _ := json.Marshal(map[string]interface{}{
 		"username": user.Username,
+		"token":    tokenSigned,
 	})
 	response.Header().Set("Content-Type", "application/json")
 	response.Write(jsonResponse)
