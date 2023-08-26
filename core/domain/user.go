@@ -10,6 +10,7 @@ type User struct {
 	ID       uint
 	Username string
 	Password *Password
+	Role     string
 }
 
 func NewUser(id uint, username, password string) *User {
@@ -32,4 +33,6 @@ type UserUseCase interface {
 
 type UserRepository interface {
 	FindByUsername(userRequest *dto.SigninUserRequest) (*User, error)
+	IsAdmin(userID uint) bool
+	IsManager(userID uint) bool
 }

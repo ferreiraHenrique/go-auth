@@ -29,6 +29,7 @@ func (service service) Signin(response http.ResponseWriter, request *http.Reques
 
 	jsonResponse, _ := json.Marshal(map[string]interface{}{
 		"username": user.Username,
+		"role":     user.Role,
 		"token":    tokenSigned,
 	})
 	response.Header().Set("Content-Type", "application/json")
