@@ -5,11 +5,10 @@ import (
 
 	"github.com/ferreiraHenrique/go-auth/adapter/sqlite"
 	"github.com/ferreiraHenrique/go-auth/core/domain"
-	"github.com/ferreiraHenrique/go-auth/core/dto"
 )
 
-func (repository repository) FindByUsername(userRequest *dto.SigninUserRequest) (*domain.User, error) {
-	model := sqlite.User{Username: userRequest.Username}
+func (repository repository) FindByUsername(username string) (*domain.User, error) {
+	model := sqlite.User{Username: username}
 	if err := repository.db.Find(&model, "username = ?", model.Username).Error; err != nil {
 		return nil, err
 	}

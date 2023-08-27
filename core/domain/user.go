@@ -32,7 +32,7 @@ type UserUseCase interface {
 }
 
 type UserRepository interface {
-	FindByUsername(userRequest *dto.SigninUserRequest) (*User, error)
+	FindByUsername(username string) (*User, error)
 	IsAdmin(userID uint) bool
 	IsManager(userID uint) bool
 }

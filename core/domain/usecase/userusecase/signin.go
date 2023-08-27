@@ -8,7 +8,7 @@ import (
 )
 
 func (usecase usecase) Signin(userRequest *dto.SigninUserRequest) (*domain.User, error) {
-	user, err := usecase.repository.FindByUsername(userRequest)
+	user, err := usecase.repository.FindByUsername(userRequest.Username)
 	if err != nil {
 		return nil, err
 	}
