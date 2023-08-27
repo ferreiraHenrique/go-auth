@@ -26,11 +26,13 @@ func NewUser(id uint, username, password string) *User {
 type UserService interface {
 	Signin(response http.ResponseWriter, request *http.Request)
 	IsAdmin(h http.Handler) http.Handler
+	IsManager(h http.Handler) http.Handler
 }
 
 type UserUseCase interface {
 	Signin(userRequest *dto.SigninUserRequest) (*User, error)
 	IsAdmin(signedToken string) bool
+	IsManager(signedToken string) bool
 }
 
 type UserRepository interface {
