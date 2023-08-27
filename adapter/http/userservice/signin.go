@@ -16,7 +16,7 @@ func (service service) Signin(response http.ResponseWriter, request *http.Reques
 		return
 	}
 
-	user, err := service.usercase.Signin(userRequest)
+	user, err := service.usecase.Signin(userRequest)
 	if err != nil {
 		response.WriteHeader(400)
 		response.Write([]byte(err.Error()))
@@ -29,6 +29,7 @@ func (service service) Signin(response http.ResponseWriter, request *http.Reques
 
 	jsonResponse, _ := json.Marshal(map[string]interface{}{
 		"username": user.Username,
+		"role":     user.Role,
 		"token":    tokenSigned,
 	})
 	response.Header().Set("Content-Type", "application/json")

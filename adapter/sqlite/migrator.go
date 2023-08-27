@@ -20,7 +20,16 @@ func Migrator() {
 	adminUser := &User{Username: "admin", Password: password.Password}
 	db.Create(adminUser)
 
-	fmt.Println("Creating Manager")
+	fmt.Println("Creating Admin model")
+	if db.Migrator().HasTable(&Admin{}) {
+		db.Migrator().DropTable(&Admin{})
+	}
+	db.Migrator().CreateTable(&Admin{})
+
+	admin := &Admin{Name: "admin", UserID: adminUser.ID}
+	db.Create(admin)
+
+	fmt.Println("Creating Manager model")
 	if db.Migrator().HasTable(&Manager{}) {
 		db.Migrator().DropTable(&Manager{})
 	}

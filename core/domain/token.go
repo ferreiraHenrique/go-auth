@@ -19,8 +19,8 @@ func NewToken() *Token {
 	return t
 }
 
-func NewFromString(tokenSigned string) (*Token, error) {
-	token, _ := jwt.Parse(tokenSigned, func(t *jwt.Token) (interface{}, error) {
+func NewTokenFromString(signedToken string) (*Token, error) {
+	token, _ := jwt.Parse(signedToken, func(t *jwt.Token) (interface{}, error) {
 		if _, ok := t.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, errors.New("unexpected signing method")
 		}
