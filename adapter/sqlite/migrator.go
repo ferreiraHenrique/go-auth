@@ -34,4 +34,10 @@ func Migrator() {
 		db.Migrator().DropTable(&Manager{})
 	}
 	db.Migrator().CreateTable(&Manager{})
+
+	fmt.Println("Creating Client model")
+	if db.Migrator().HasTable(&Client{}) {
+		db.Migrator().DropTable(&Client{})
+	}
+	db.Migrator().CreateTable(&Client{})
 }
