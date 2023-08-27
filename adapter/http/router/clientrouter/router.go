@@ -12,4 +12,7 @@ func Router(conn sqlite.PoolInterface, r *mux.Router) {
 	clientService := di.ConfigClientDI(conn)
 
 	r.Handle("", http.HandlerFunc(clientService.Create)).Methods("POST")
+
+	userService := di.ConfigUserDI(conn)
+	r.Use(userService.IsManager)
 }
