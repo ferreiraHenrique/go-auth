@@ -12,6 +12,16 @@ type Client struct {
 	User *User
 }
 
+func NewClient(id uint, name string, user *User) *Client {
+	client := &Client{
+		ID:   id,
+		Name: name,
+		User: user,
+	}
+
+	return client
+}
+
 type ClientService interface {
 	Create(response http.ResponseWriter, request *http.Request)
 }

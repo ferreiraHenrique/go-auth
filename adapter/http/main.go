@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/ferreiraHenrique/go-auth/adapter/http/router/clientrouter"
 	"github.com/ferreiraHenrique/go-auth/adapter/http/router/managerrouter"
 	"github.com/ferreiraHenrique/go-auth/adapter/http/router/userrouter"
 	"github.com/ferreiraHenrique/go-auth/adapter/sqlite"
@@ -30,6 +31,9 @@ func main() {
 
 	userRouter := router.PathPrefix("/user").Subrouter()
 	userrouter.Router(conn, userRouter)
+
+	clientRouter := router.PathPrefix("/client").Subrouter()
+	clientrouter.Router(conn, clientRouter)
 
 	port := viper.GetString("server.port")
 	log.Printf("LISTEN ON PORT: %v", port)
