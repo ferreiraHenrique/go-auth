@@ -16,7 +16,7 @@ func (service service) Signin(response http.ResponseWriter, request *http.Reques
 		return
 	}
 
-	user, err := service.usercase.Signin(userRequest)
+	user, err := service.usecase.Signin(userRequest)
 	if err != nil {
 		response.WriteHeader(400)
 		response.Write([]byte(err.Error()))
