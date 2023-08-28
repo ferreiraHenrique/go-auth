@@ -40,4 +40,10 @@ func Migrator() {
 		db.Migrator().DropTable(&Client{})
 	}
 	db.Migrator().CreateTable(&Client{})
+
+	fmt.Println("Creating Permission model")
+	if db.Migrator().HasTable(&Permission{}) {
+		db.Migrator().DropTable(&Permission{})
+	}
+	db.Migrator().CreateTable(&Permission{})
 }
