@@ -2,6 +2,8 @@ package userservice
 
 import (
 	"net/http"
+
+	"github.com/gorilla/context"
 )
 
 func (service service) IsManager(h http.Handler) http.Handler {
@@ -19,11 +21,14 @@ func (service service) IsManager(h http.Handler) http.Handler {
 			return
 		}
 
-		if !service.usecase.IsManager(auth[0]) {
+		isAdmin, manager := service.usecase.IsManager(auth[0])
+		if !isAdmin {
 			response.WriteHeader(403)
 			response.Write([]byte("missing manager authorization"))
 			return
 		}
+
+		context.Set(request, "manager", manager)
 
 		h.ServeHTTP(response, request)
 	})

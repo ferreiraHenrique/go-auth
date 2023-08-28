@@ -7,16 +7,18 @@ import (
 )
 
 type Client struct {
-	ID   uint
-	Name string
-	User *User
+	ID      uint
+	Name    string
+	User    *User
+	Manager *Manager
 }
 
-func NewClient(id uint, name string, user *User) *Client {
+func NewClient(id uint, name string, user *User, manager *Manager) *Client {
 	client := &Client{
-		ID:   id,
-		Name: name,
-		User: user,
+		ID:      id,
+		Name:    name,
+		User:    user,
+		Manager: manager,
 	}
 
 	return client
@@ -27,9 +29,9 @@ type ClientService interface {
 }
 
 type ClientUseCase interface {
-	Create(clientRequest *dto.CreateClientRequest) (*Client, error)
+	Create(clientRequest *dto.CreateClientRequest, managerID uint) (*Client, error)
 }
 
 type ClientRepository interface {
-	Create(clientRequest *dto.CreateClientRequest) (*Client, error)
+	Create(clientRequest *dto.CreateClientRequest, managerID uint) (*Client, error)
 }

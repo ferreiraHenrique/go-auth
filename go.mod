@@ -3,6 +3,8 @@ module github.com/ferreiraHenrique/go-auth
 go 1.19
 
 require (
+	github.com/golang-jwt/jwt/v5 v5.0.0
+	github.com/gorilla/context v1.1.1
 	github.com/gorilla/mux v1.8.0
 	github.com/spf13/viper v1.16.0
 	golang.org/x/crypto v0.9.0
@@ -12,7 +14,6 @@ require (
 
 require (
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
-	github.com/golang-jwt/jwt/v5 v5.0.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect

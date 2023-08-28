@@ -21,7 +21,7 @@ func (usecase usecase) Signin(userRequest *dto.SigninUserRequest) (*domain.User,
 		user.Role = "admin"
 	}
 
-	if usecase.repository.IsManager(user.ID) {
+	if ok, _ := usecase.repository.IsManager(user.ID); ok {
 		user.Role = "manager"
 	}
 

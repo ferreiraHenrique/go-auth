@@ -32,11 +32,11 @@ type UserService interface {
 type UserUseCase interface {
 	Signin(userRequest *dto.SigninUserRequest) (*User, error)
 	IsAdmin(signedToken string) bool
-	IsManager(signedToken string) bool
+	IsManager(signedToken string) (bool, *Manager)
 }
 
 type UserRepository interface {
 	FindByUsername(username string) (*User, error)
 	IsAdmin(userID uint) bool
-	IsManager(userID uint) bool
+	IsManager(userID uint) (bool, *Manager)
 }
