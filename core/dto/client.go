@@ -32,3 +32,25 @@ func FromJSONCreateClientRequest(body io.Reader) (*CreateClientRequest, error) {
 
 	return &createClientRequest, nil
 }
+
+type AttachClientPermissionRequest struct {
+	ClientUUID     string `json:"client_uuid"`
+	PermissionUUID string `json:"permission_uuid"`
+}
+
+func FromJSONAttachClientPermissionRequest(body io.Reader) (*AttachClientPermissionRequest, error) {
+	attachClientPermissionRequest := AttachClientPermissionRequest{}
+	if err := json.NewDecoder(body).Decode(&attachClientPermissionRequest); err != nil {
+		return nil, err
+	}
+
+	if attachClientPermissionRequest.ClientUUID == "" {
+		return nil, errors.New("'client_uuid' is required")
+	}
+
+	if attachClientPermissionRequest.PermissionUUID == "" {
+		return nil, errors.New("'permission_uuid' is required")
+	}
+
+	return &attachClientPermissionRequest, nil
+}
