@@ -15,6 +15,7 @@ type PoolInterface interface {
 	Find(dest interface{}, conds ...interface{}) (tx *gorm.DB)
 	First(dest interface{}, conds ...interface{}) (tx *gorm.DB)
 	Transaction(fc func(tx *gorm.DB) error, opts ...*sql.TxOptions) (err error)
+	Model(value interface{}) (tx *gorm.DB)
 }
 
 func GetConnection() *gorm.DB {
