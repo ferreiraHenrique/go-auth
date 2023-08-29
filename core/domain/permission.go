@@ -11,6 +11,7 @@ type Permission struct {
 	UUID    string
 	Name    string
 	Manager *Manager
+	dbRef   interface{}
 }
 
 func NewPermission(id uint, uuid string, name string, manager *Manager) *Permission {
@@ -20,6 +21,14 @@ func NewPermission(id uint, uuid string, name string, manager *Manager) *Permiss
 		Name:    name,
 		Manager: manager,
 	}
+}
+
+func (permission *Permission) SetRef(ref interface{}) {
+	permission.dbRef = ref
+}
+
+func (permission *Permission) GetRef() interface{} {
+	return permission.dbRef
 }
 
 type PermissionService interface {
@@ -35,4 +44,5 @@ type PermissionUseCase interface {
 type PermissionRepository interface {
 	Create(permissionRequest *dto.CreatePermissionRequest, managerID uint) (*Permission, error)
 	ListByManager(managerID uint) (*[]Permission, error)
+	FindByUUID(uuid string) (*Permission, error)
 }

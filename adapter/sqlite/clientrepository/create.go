@@ -36,6 +36,7 @@ func (repository repository) Create(clientRequest *dto.CreateClientRequest, mana
 
 	return domain.NewClient(
 		client.ID,
+		client.UUID,
 		client.Name,
 		domain.NewUser(user.ID, user.Username, user.Password),
 		nil,
