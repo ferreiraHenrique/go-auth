@@ -1,10 +1,8 @@
 package sqlite
 
-type Client struct {
+type Permission struct {
 	Base
 	Name      string
-	UserID    uint
-	User      User `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	ManagerID uint
 	Manager   Manager `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 }
