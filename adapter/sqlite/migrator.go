@@ -1,7 +1,7 @@
 package sqlite
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/ferreiraHenrique/go-auth/core/domain"
 )
@@ -9,49 +9,36 @@ import (
 func Migrator() {
 	db := GetConnection()
 
-	fmt.Println("Creating User model")
-	if db.Migrator().HasTable(&User{}) {
-		db.Migrator().DropTable(&User{})
-	}
-	db.Migrator().CreateTable(&User{})
+	tables := []any{&Permission{}, &User{}, &Admin{}, &Manager{}, &Client{}}
 
+	log.Println("Tables:")
+	for _, t := range tables {
+		log.Printf("%T\n", t)
+	}
+
+	log.Println("Droping tables")
+	db.Migrator().DropTable(tables...)
+
+	log.Println("Creating tables")
+	db.AutoMigrate(tables...)
+
+	log.Println("Creating default admin user")
 	adminPassword := domain.NewPassword("admin")
 	adminPassword.Hash()
 	adminUser := &User{Username: "admin", Password: adminPassword.Password}
 	db.Create(adminUser)
 
+	log.Println("Creating default admin")
+	admin := &Admin{Name: "admin", UserID: adminUser.ID}
+	db.Create(admin)
+
+	log.Println("Creating default manager user")
 	managerPassword := domain.NewPassword("manager")
 	managerPassword.Hash()
 	managerUser := &User{Username: "manager", Password: managerPassword.Password}
 	db.Create(managerUser)
 
-	fmt.Println("Creating Admin model")
-	if db.Migrator().HasTable(&Admin{}) {
-		db.Migrator().DropTable(&Admin{})
-	}
-	db.Migrator().CreateTable(&Admin{})
-
-	admin := &Admin{Name: "admin", UserID: adminUser.ID}
-	db.Create(admin)
-
-	fmt.Println("Creating Manager model")
-	if db.Migrator().HasTable(&Manager{}) {
-		db.Migrator().DropTable(&Manager{})
-	}
-	db.Migrator().CreateTable(&Manager{})
-
+	log.Println("Creating default admin")
 	manager := &Manager{Name: "manager", UserID: managerUser.ID}
 	db.Create(manager)
-
-	fmt.Println("Creating Client model")
-	if db.Migrator().HasTable(&Client{}) {
-		db.Migrator().DropTable(&Client{})
-	}
-	db.Migrator().CreateTable(&Client{})
-
-	fmt.Println("Creating Permission model")
-	if db.Migrator().HasTable(&Permission{}) {
-		db.Migrator().DropTable(&Permission{})
-	}
-	db.Migrator().CreateTable(&Permission{})
 }
