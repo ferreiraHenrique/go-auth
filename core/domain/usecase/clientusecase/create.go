@@ -6,7 +6,7 @@ import (
 )
 
 func (usecase usecase) Create(clientRequest *dto.CreateClientRequest, managerID uint) (*domain.Client, error) {
-	client, err := usecase.repository.Create(clientRequest, managerID)
+	client, err := usecase.clientRepository.Create(clientRequest, managerID)
 	if err != nil {
 		return nil, err
 	}

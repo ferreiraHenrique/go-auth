@@ -1,7 +1,6 @@
 package clientservice
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/ferreiraHenrique/go-auth/core/domain"
@@ -9,7 +8,7 @@ import (
 	"github.com/gorilla/context"
 )
 
-func (service service) Create(response http.ResponseWriter, request *http.Request) {
+func (service service) AttachPermission(response http.ResponseWriter, request *http.Request) {
 	manager := context.Get(request, "manager").(*domain.Manager)
 	if manager == nil {
 		response.WriteHeader(400)
@@ -17,23 +16,18 @@ func (service service) Create(response http.ResponseWriter, request *http.Reques
 		return
 	}
 
-	clientRequest, err := dto.FromJSONCreateClientRequest(request.Body)
+	clientRequest, err := dto.FromJSONAttachClientPermissionRequest(request.Body)
 	if err != nil {
 		response.WriteHeader(400)
 		response.Write([]byte(err.Error()))
 		return
 	}
 
-	client, err := service.usecase.Create(clientRequest, manager.ID)
-	if err != nil {
+	if err := service.usecase.AttachPermission(clientRequest); err != nil {
 		response.WriteHeader(400)
 		response.Write([]byte(err.Error()))
 		return
 	}
 
-	jsonResponse, _ := json.Marshal(map[string]interface{}{
-		"username": client.User.Username,
-	})
-	response.Header().Set("Content-Type", "application/json")
-	response.Write(jsonResponse)
+	response.WriteHeader(204)
 }
