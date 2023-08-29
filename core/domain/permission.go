@@ -8,13 +8,15 @@ import (
 
 type Permission struct {
 	ID      uint
+	UUID    string
 	Name    string
 	Manager *Manager
 }
 
-func NewPermission(id uint, name string, manager *Manager) *Permission {
+func NewPermission(id uint, uuid string, name string, manager *Manager) *Permission {
 	return &Permission{
 		ID:      id,
+		UUID:    uuid,
 		Name:    name,
 		Manager: manager,
 	}

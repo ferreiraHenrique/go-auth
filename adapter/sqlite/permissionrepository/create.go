@@ -18,6 +18,7 @@ func (repository repository) Create(permissionRequest *dto.CreatePermissionReque
 
 	return domain.NewPermission(
 		permission.ID,
+		permission.UUID,
 		permission.Name,
 		nil,
 	), nil

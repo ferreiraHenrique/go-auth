@@ -15,6 +15,7 @@ func (repository repository) ListByManager(managerID uint) (*[]domain.Permission
 	for _, p := range ps {
 		permissions = append(permissions, *domain.NewPermission(
 			p.ID,
+			p.UUID,
 			p.Name,
 			nil,
 		))
