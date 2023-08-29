@@ -3,11 +3,16 @@ package clientusecase
 import "github.com/ferreiraHenrique/go-auth/core/domain"
 
 type usecase struct {
-	repository domain.ClientRepository
+	clientRepository     domain.ClientRepository
+	permissionRepository domain.PermissionRepository
 }
 
-func New(repository domain.ClientRepository) domain.ClientUseCase {
+func New(
+	clientRepository domain.ClientRepository,
+	permissionRepository domain.PermissionRepository,
+) domain.ClientUseCase {
 	return &usecase{
-		repository: repository,
+		clientRepository:     clientRepository,
+		permissionRepository: permissionRepository,
 	}
 }
