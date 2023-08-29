@@ -38,15 +38,18 @@ func (client *Client) GetRef() interface{} {
 type ClientService interface {
 	Create(response http.ResponseWriter, request *http.Request)
 	AttachPermission(response http.ResponseWriter, request *http.Request)
+	ListByManager(response http.ResponseWriter, request *http.Request)
 }
 
 type ClientUseCase interface {
 	Create(clientRequest *dto.CreateClientRequest, managerID uint) (*Client, error)
 	AttachPermission(clientRequest *dto.AttachClientPermissionRequest) error
+	ListByManager(managerID uint) (*[]Client, error)
 }
 
 type ClientRepository interface {
 	Create(clientRequest *dto.CreateClientRequest, managerID uint) (*Client, error)
 	FindByUUID(uuid string) (*Client, error)
 	AttachPermission(client *Client, permission *Permission) error
+	ListByManager(managerID uint) (*[]Client, error)
 }
