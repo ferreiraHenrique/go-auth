@@ -15,10 +15,15 @@ func Migrator() {
 	}
 	db.Migrator().CreateTable(&User{})
 
-	password := domain.NewPassword("admin")
-	password.Hash()
-	adminUser := &User{Username: "admin", Password: password.Password}
+	adminPassword := domain.NewPassword("admin")
+	adminPassword.Hash()
+	adminUser := &User{Username: "admin", Password: adminPassword.Password}
 	db.Create(adminUser)
+
+	managerPassword := domain.NewPassword("manager")
+	managerPassword.Hash()
+	managerUser := &User{Username: "manager", Password: managerPassword.Password}
+	db.Create(managerUser)
 
 	fmt.Println("Creating Admin model")
 	if db.Migrator().HasTable(&Admin{}) {
@@ -34,6 +39,9 @@ func Migrator() {
 		db.Migrator().DropTable(&Manager{})
 	}
 	db.Migrator().CreateTable(&Manager{})
+
+	manager := &Manager{Name: "manager", UserID: managerUser.ID}
+	db.Create(manager)
 
 	fmt.Println("Creating Client model")
 	if db.Migrator().HasTable(&Client{}) {
